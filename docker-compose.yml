@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  backend:
+    container_name: backend
+    restart: always
+    build: ./server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    volumes:
+      - ./server:/app
+
+    env_file:
+      - .env.server 
+
+  frontend:
+    container_name: frontend
+    restart : always
+    build:
+      context: ./client
+      target: development  
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - exclude:/app/node_modules/
+    depends_on:
+      - backend
+
+
+    env_file:
+      - .env.client
+
+  postgres:
+    container_name: db 
+    restart : always 
+    build :  
+      context : ./db
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: "123"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+
+volumes:
+  postgres_data:
+  exclude:
+   

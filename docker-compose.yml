@@ -14,6 +14,8 @@ services:
 
     env_file:
       - .env.server 
+    entrypoint: sh -c
+    command: "./wait_dude.sh"
 
   frontend:
     container_name: frontend

@@ -18,6 +18,5 @@ RUN pip install --upgrade setuptools
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
+RUN chmod +x wait_dude.sh 
 EXPOSE 8000
-
-CMD ["sh", "-c", "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"]

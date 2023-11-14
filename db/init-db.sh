@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # Wait until PostgreSQL is ready
-until pg_isready -h db -p 5432 -U root -d mydb
+until pg_isready -h localhost -p 5432 -U $POSTGRES_USER -d $POSTGRES_DB
 do
   echo "Waiting for PostgreSQL to start..."
   sleep 1
 done
 
 # Check if the database exists
-if psql -h db -U root -lqt | cut -d \| -f 1 | grep -qw mydb; then
-  echo "Database 'mydb' already exists. Skipping creation."
+if psql -h localhost -U $POSTGRES_USER -lqt | cut -d \| -f 1 | grep -qw $POSTGRES_DB; then
+  echo "Database '$POSTGRES_DB' already exists. Skipping creation."
 else
   # Create the database
-  psql -h db -U root -c "CREATE DATABASE mydb;"
-  echo "Database 'mydb' created."
+  psql -h localhost -U $POSTGRES_USER -c "CREATE DATABASE $POSTGRES_DB;"
+  echo "Database '$POSTGRES_DB' created."
 fi

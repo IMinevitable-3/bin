@@ -14,7 +14,7 @@ SECRET_KEY = SECRET_KEY
 # DEBUG = True
 DEBUG = DJANGO_DEBUG
 
-ALLOWED_HOSTS = ['localhost']
+# ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 
